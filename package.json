@@ -1,0 +1,16 @@
+{
+  "name": "nodecrudapp",
+  "version": "1.0.0",
+  "description": "my frist node js and mysql crud application with the base REST operations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Malay Dhar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql": "^2.16.0"
+  }
+}

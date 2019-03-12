@@ -20,11 +20,11 @@ mysqlConnection.connect((err)=>{
         console.log('database connection faild \n Error : '+ JSON.stringify(err,undefined,2));
 });
 
-app.listen(3000,()=>console.log('server is running @3000...'));
+app.listen(4000,()=>console.log('server is running @4000...'));
 
 // get the list of all books
 app.get('/book',(req, res)=>{
-    mysqlConnection.query('select * from book_info',(err, rows, fields)=>{
+    mysqlConnection.query('select * from book_info order by id desc ',(err, rows, fields)=>{
         if(!err)
             res.send(rows);
         else
@@ -56,13 +56,15 @@ app.delete('/book/:id',(req, res)=>{
 // insert into book
 app.post('/book/',(req, res)=>{
     let book = req.body;
-    var sql = "set @id = ?;set @book_name = ?;set @book_desc = ?;set @book_author = ?; \
-    call bookAddOrUpdate(@id,@book_name,@book_desc,@book_author);" ;
-    mysqlConnection.query(sql,[book.id,book.book_name,book.book_desc,book.book_author],(err, rows, fields)=>{
+    console.log(book);
+    var sql = "set @id = ?; set @book_name = ?; set @book_desc = ?; set @book_author = ?; set @price = ?; \
+    call bookAddOrUpdate(@id,@book_name,@book_desc,@book_author,@price);" ;
+    mysqlConnection.query(sql,[book.id, book.book_name, book.book_desc, book.book_author, book.price],(err, rows, fields)=>{
         if(!err)
             rows.forEach(element=>{
                 if(element.constructor == Array)
-                    res.send('book inserted with id -> '+element[0].id);
+                    // res.send('book inserted with id -> '+element[0].id);
+                    res.send(element);
             });
         else
             console.log(err);
@@ -72,9 +74,9 @@ app.post('/book/',(req, res)=>{
 // update a book
 app.put('/book/',(req, res)=>{
     let book = req.body;
-    var sql = "set @id = ?;set @book_name = ?;set @book_desc = ?;set @book_author = ?; \
-    call bookAddOrUpdate(@id,@book_name,@book_desc,@book_author);" ;
-    mysqlConnection.query(sql,[book.id,book.book_name,book.book_desc,book.book_author],(err, rows, fields)=>{
+    var sql = "set @id = ?; set @book_name = ?; set @book_desc = ?; set @book_author = ?; set @price = ?; \
+    call bookAddOrUpdate(@id,@book_name,@book_desc,@book_author,@price);" ;
+    mysqlConnection.query(sql,[book.id,book.book_name,book.book_desc,book.book_author,book.price],(err, rows, fields)=>{
         if(!err)
             rows.forEach(element=>{
                 if(element.constructor == Array)

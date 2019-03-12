@@ -4,7 +4,8 @@
   "description": "my frist node js and mysql crud application with the base REST operations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "index.js"
   },
   "author": "Malay Dhar",
   "license": "ISC",
